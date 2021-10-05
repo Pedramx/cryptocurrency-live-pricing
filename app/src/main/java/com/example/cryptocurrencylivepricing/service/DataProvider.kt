@@ -1,154 +1,27 @@
 package com.example.cryptocurrencylivepricing.service
 
-import com.example.cryptocurrencylivepricing.model.AggregateTradeStream
+import com.example.cryptocurrencylivepricing.api.BinanceService
+import com.example.cryptocurrencylivepricing.api.scarletInstance
+import com.example.cryptocurrencylivepricing.model.Subscribe
+import com.example.cryptocurrencylivepricing.model.Ticker
+import com.tinder.scarlet.WebSocket
 
-object DataProvider {
-
-    val AggregateTradeStreamList = listOf(
-        AggregateTradeStream(
-            e = "trade",
-            E = 123456789L,
-            s = "BNBBTC",
-            a = 12345L,
-            p = "0.001",
-            q = "100",
-            f = 88L,
-            l = 50L,
-            T = 123456785L,
-            m = true
-        ),
-        AggregateTradeStream(
-            e = "trade",
-            E = 123456789L,
-            s = "BNBBTC",
-            a = 12345L,
-            p = "0.001",
-            q = "100",
-            f = 88L,
-            l = 50L,
-            T = 123456785L,
-            m = true
-        ),
-        AggregateTradeStream(
-            e = "trade",
-            E = 123456789L,
-            s = "BNBBTC",
-            a = 12345L,
-            p = "0.001",
-            q = "100",
-            f = 88L,
-            l = 50L,
-            T = 123456785L,
-            m = true
-        ),
-        AggregateTradeStream(
-            e = "trade",
-            E = 123456789L,
-            s = "BNBBTC",
-            a = 12345L,
-            p = "0.001",
-            q = "100",
-            f = 88L,
-            l = 50L,
-            T = 123456785L,
-            m = true
-        ),
-        AggregateTradeStream(
-            e = "trade",
-            E = 123456789L,
-            s = "BNBBTC",
-            a = 12345L,
-            p = "0.001",
-            q = "100",
-            f = 88L,
-            l = 50L,
-            T = 123456785L,
-            m = true
-        ),
-        AggregateTradeStream(
-            e = "trade",
-            E = 123456789L,
-            s = "BNBBTC",
-            a = 12345L,
-            p = "0.001",
-            q = "100",
-            f = 88L,
-            l = 50L,
-            T = 123456785L,
-            m = true
-        ),
-        AggregateTradeStream(
-            e = "trade",
-            E = 123456789L,
-            s = "BNBBTC",
-            a = 12345L,
-            p = "0.001",
-            q = "100",
-            f = 88L,
-            l = 50L,
-            T = 123456785L,
-            m = true
-        ),
-        AggregateTradeStream(
-            e = "trade",
-            E = 123456789L,
-            s = "BNBBTC",
-            a = 12345L,
-            p = "0.001",
-            q = "100",
-            f = 88L,
-            l = 50L,
-            T = 123456785L,
-            m = true
-        ),
-        AggregateTradeStream(
-            e = "trade",
-            E = 123456789L,
-            s = "BNBBTC",
-            a = 12345L,
-            p = "0.001",
-            q = "100",
-            f = 88L,
-            l = 50L,
-            T = 123456785L,
-            m = true
-        ),
-        AggregateTradeStream(
-            e = "trade",
-            E = 123456789L,
-            s = "BNBBTC",
-            a = 12345L,
-            p = "0.001",
-            q = "100",
-            f = 88L,
-            l = 50L,
-            T = 123456785L,
-            m = true
-        ),
-        AggregateTradeStream(
-            e = "trade",
-            E = 123456789L,
-            s = "BNBBTC",
-            a = 12345L,
-            p = "0.001",
-            q = "100",
-            f = 88L,
-            l = 50L,
-            T = 123456785L,
-            m = true
-        ),
-        AggregateTradeStream(
-            e = "trade",
-            E = 123456789L,
-            s = "BNBBTC",
-            a = 12345L,
-            p = "0.001",
-            q = "100",
-            f = 88L,
-            l = 50L,
-            T = 123456785L,
-            m = true
-        ),
+fun dataProvider(onListChange: (List<Ticker>) -> Unit) {
+    val ALL_MARKET_TradeS_SUBSCRIBE_MESSAGE = Subscribe(
+        "SUBSCRIBE",
+        listOf("!ticker@arr"),
+        1
     )
+    val scarlet = scarletInstance()
+    val binanceService = scarlet.create<BinanceService>()
 
+    binanceService.observeWebSocketEvent()
+        .filter { it is WebSocket.Event.OnConnectionOpened<*> }
+        .subscribe({
+            binanceService.sendSubscribe(ALL_MARKET_TradeS_SUBSCRIBE_MESSAGE)
+        })
+    binanceService.observeAllMarketTickers()
+        .subscribe({ tickersList ->
+            onListChange(tickersList)
+        })
 }

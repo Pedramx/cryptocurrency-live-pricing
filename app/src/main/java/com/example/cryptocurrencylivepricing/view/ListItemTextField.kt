@@ -1,4 +1,4 @@
-package com.example.cryptocurrencylivepricing.component
+package com.example.cryptocurrencylivepricing.view
 
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.MaterialTheme

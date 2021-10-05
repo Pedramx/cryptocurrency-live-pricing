@@ -1,4 +1,4 @@
-package com.example.cryptocurrencylivepricing.component
+package com.example.cryptocurrencylivepricing.view
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Row
@@ -11,10 +11,10 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
-import com.example.cryptocurrencylivepricing.model.AggregateTradeStream
+import com.example.cryptocurrencylivepricing.model.Ticker
 
 @Composable
-fun TradesListItem(trade: AggregateTradeStream) {
+fun TickerListItem(ticker: Ticker) {
     Card(
         modifier = Modifier
             .padding(horizontal = 8.dp, vertical = 8.dp)
@@ -29,8 +29,8 @@ fun TradesListItem(trade: AggregateTradeStream) {
                 .fillMaxWidth(),
             Arrangement.Center
         ) {
-            ListItemTextField(text = trade.s)
-            ListItemTextField(text = trade.p)
+            ListItemTextField(text = ticker.symbol)
+            ListItemTextField(text = ticker.lastPrice)
         }
     }
 }
