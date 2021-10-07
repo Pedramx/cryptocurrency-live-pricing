@@ -1,5 +1,6 @@
 package com.example.cryptocurrencylivepricing
 
+import android.app.Application
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
@@ -14,6 +15,8 @@ import com.example.cryptocurrencylivepricing.service.TickerListViewModel
 import com.example.cryptocurrencylivepricing.view.CryptoLivePricingHomeContent
 import com.example.cryptocurrencylivepricing.ui.theme.CryptocurrencyLivePricingTheme
 import androidx.lifecycle.viewmodel.compose.viewModel
+import com.tinder.scarlet.Lifecycle
+import com.tinder.scarlet.lifecycle.android.AndroidLifecycle
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
